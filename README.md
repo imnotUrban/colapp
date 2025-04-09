@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ColApp Backend
 
-## Getting Started
+Backend para la aplicación colaborativa de servicios ColApp, desarrollado con Express.js y MongoDB.
 
-First, run the development server:
+## Requisitos
 
-```bash
+- Node.js (v14 o superior)
+- MongoDB
+- npm o yarn
+
+## Instalación
+
+1. Clona este repositorio:
+\`\`\`bash
+git clone https://github.com/tu-usuario/colapp-backend.git
+cd colapp-backend
+\`\`\`
+
+2. Instala las dependencias:
+\`\`\`bash
+npm install
+\`\`\`
+
+3. Crea un archivo `.env` basado en `.env.example` y configura tus variables de entorno:
+\`\`\`bash
+cp .env.example .env
+\`\`\`
+
+4. Inicia el servidor:
+\`\`\`bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+\`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+El servidor estará disponible en http://localhost:5000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Estructura del Proyecto
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+\`\`\`
+colapp-backend/
+├── controllers/       # Controladores de la aplicación
+├── middleware/        # Middleware personalizado
+├── models/            # Modelos de MongoDB
+├── routes/            # Rutas de la API
+├── uploads/           # Directorio para archivos subidos
+├── .env               # Variables de entorno
+├── .env.example       # Ejemplo de variables de entorno
+├── package.json       # Dependencias y scripts
+├── README.md          # Documentación
+└── server.js          # Punto de entrada de la aplicación
+\`\`\`
 
-## Learn More
+## API Endpoints
 
-To learn more about Next.js, take a look at the following resources:
+### Autenticación
+- `POST /api/auth/register` - Registrar un nuevo usuario
+- `POST /api/auth/login` - Iniciar sesión
+- `GET /api/auth/me` - Obtener usuario actual (protegido)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Usuarios
+- `GET /api/users/profile/:username` - Obtener perfil de usuario
+- `PUT /api/users/profile` - Actualizar perfil (protegido)
+- `PATCH /api/users/profile/images` - Actualizar avatar o banner (protegido)
+- `GET /api/users/wallet` - Obtener balance de la billetera (protegido)
+- `POST /api/users/wallet/transfer` - Transferir fondos pendientes (protegido)
+- `POST /api/users/wallet/withdraw` - Retirar fondos (protegido)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Servicios
+- `GET /api/services` - Obtener todos los servicios (con filtros)
+- `GET /api/services/:id` - Obtener un servicio por ID
+- `POST /api/services` - Crear un nuevo servicio (protegido)
+- `PUT /api/services/:id` - Actualizar un servicio (protegido)
+- `DELETE /api/services/:id` - Eliminar un servicio (protegido)
+- `PATCH /api/services/:id/status` - Cambiar estado de un servicio (protegido)
+- `GET /api/services/provider/:providerId` - Obtener servicios por proveedor
+- `GET /api/services/user/me` - Obtener mis servicios (protegido)
 
-## Deploy on Vercel
+### Reservas
+- `POST /api/bookings` - Crear una nueva reserva (protegido)
+- `GET /api/bookings/me/client` - Obtener mis reservas como cliente (protegido)
+- `GET /api/bookings/me/provider` - Obtener mis reservas como proveedor (protegido)
+- `GET /api/bookings/:id` - Obtener una reserva por ID (protegido)
+- `PATCH /api/bookings/:id/status` - Actualizar estado de una reserva (protegido)
+- `PATCH /api/bookings/:id/cancel` - Cancelar una reserva (protegido)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Reseñas
+- `POST /api/reviews` - Crear una nueva reseña (protegido)
+- `GET /api/reviews/service/:serviceId` - Obtener reseñas de un servicio
+- `GET /api/reviews/provider/:providerId` - Obtener reseñas de un proveedor
+- `GET /api/reviews/me` - Obtener mis reseñas (protegido)
+- `DELETE /api/reviews/:id` - Eliminar una reseña (protegido)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Licencia
+
+MIT
