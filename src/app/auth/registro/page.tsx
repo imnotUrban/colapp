@@ -1,8 +1,6 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -35,6 +33,7 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    console.log("Form submission started")
     setError("")
 
     // Validaciones
@@ -59,6 +58,7 @@ export default function RegisterPage() {
       await register(formData.name, formData.username, formData.email, formData.password)
       router.push("/perfil")
     } catch (err) {
+      console.error("Registration error:", err)
       setError(err instanceof Error ? err.message : "Error al registrarse. Inténtalo de nuevo.")
     } finally {
       setIsLoading(false)

@@ -65,12 +65,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const register = async (name: string, username: string, email: string, password: string) => {
     setLoading(true)
+    console.log("AuthContext: Starting registration process")
     try {
       const response = await authService.register({ name, username, email, password })
       setUser(response.user)
+      console.log("AuthContext: Registration successful, response:", response)
       router.push("/perfil")
     } catch (error) {
-      console.error("Error al registrar:", error)
+      console.error("AuthContext: Registration error:", error)
       throw error
     } finally {
       setLoading(false)

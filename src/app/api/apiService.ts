@@ -1,4 +1,6 @@
 import { getToken } from "./authService"
+import dotenv from "dotenv";
+dotenv.config(); // Load environment variables from .env file
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
 
